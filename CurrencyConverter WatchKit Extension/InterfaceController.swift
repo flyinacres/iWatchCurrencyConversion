@@ -13,7 +13,7 @@ var activeCurrency = 0
 var currencies = ["GBP", "EUR", "JPY", "CAD"]
 var currencyConversions = [0.74, 0.93, 0.4, 1.24]
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, NSXMLParserDelegate {
 
 
     @IBOutlet weak var currencyLabel: WKInterfaceLabel!
@@ -28,7 +28,22 @@ class InterfaceController: WKInterfaceController {
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
-        // Configure interface objects here.
+        let url = NSURL(string: "http://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote")
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: {
+            (data, response, error) -> Void in
+            if error == nil {
+                println(NSString(data:  data, encoding: NSUTF8StringEncoding))
+                var xmlParser = NSXMLParser(data:data)
+                xmlParser.delegate = self
+                xmlParser.parse()
+                
+            } else {
+                println(error)
+            }
+        })
+        
+        task.resume()
+
     }
 
     override func willActivate() {
