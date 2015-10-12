@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="CurrencyConverter_WatchKit_App" customModuleProvider="target">
+                    <items>
+                        <label width="1" alignment="left" text="Convert USD to: " id="l18-8q-Qjw"/>
+                        <label alignment="center" verticalAlignment="center" text="GBP" id="zRe-qf-SwO">
+                            <fontDescription key="font" type="system" pointSize="36"/>
+                        </label>
+                        <slider width="1" alignment="center" verticalAlignment="bottom" steps="3" id="uk4-9S-AUT">
+                            <connections>
+                                <action selector="currencyChooser:" destination="AgC-eL-Hgc" id="eLj-Ko-nOI"/>
+                            </connections>
+                        </slider>
+                    </items>
+                    <connections>
+                        <outlet property="currencyLabel" destination="zRe-qf-SwO" id="mFZ-9s-SSo"/>
+                        <segue destination="vcO-zv-INq" kind="relationship" relationship="nextPage" id="Yeo-4F-aUz"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--DetailInterface-->
+        <scene sceneID="rG6-C4-h0D">
+            <objects>
+                <controller identifier="DetailInterface" id="vcO-zv-INq" customClass="detailInterfaceController" customModule="CurrencyConverter_WatchKit_Extension">
+                    <items>
+                        <label width="1" alignment="center" text="1 USD equals: " id="gzf-wu-k22"/>
+                        <label alignment="center" text="0.75" id="ZcJ-y4-TA7">
+                            <fontDescription key="font" type="system" pointSize="27"/>
+                        </label>
+                        <label alignment="center" text="GBP" id="bgX-Th-Z83"/>
+                        <slider width="1" alignment="left" verticalAlignment="bottom" value="0.050000000000000003" steps="20" id="buT-nW-Ytt">
+                            <connections>
+                                <action selector="conversionAmount:" destination="vcO-zv-INq" id="Qhw-ON-Bv2"/>
+                            </connections>
+                        </slider>
+                    </items>
+                    <connections>
+                        <outlet property="conversionAmount" destination="ZcJ-y4-TA7" id="4Gs-7e-JmX"/>
+                        <outlet property="currencyLabel" destination="bgX-Th-Z83" id="DnV-XF-b1c"/>
+                        <outlet property="dollarsLabel" destination="gzf-wu-k22" id="A3f-fD-HAD"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="389" y="343"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="CurrencyConverter_WatchKit_App" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>
