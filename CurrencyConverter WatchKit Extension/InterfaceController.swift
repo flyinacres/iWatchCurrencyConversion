@@ -55,5 +55,35 @@ class InterfaceController: WKInterfaceController, NSXMLParserDelegate {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
+    
+    var element = ""
+    var nameAttribute = ""
+    var getCurrency = -1
+    
+    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [NSObject : AnyObject]) {
+        element = elementName
+        if attributeDict["name"] != nil {
+            nameAttribute = attributeDict["name"] as! String
+        } else {
+            nameAttribute = ""
+        }
+    }
+    
+    func parser(parser: NSXMLParser, foundCharacters string: String?) {
+        if element == "field" && nameAttribute == "name" {
+            for (index, currency) in enumerate(currencies) {
+                if string == "USD/" + currency {
+                    getCurrency = index
+                }
+            }
+            
+        }
+        if element == "field" && nameAttribute == "price" && getCurrency != -1 {
+            println("Found one")
+            println(string)
+            currencyConversions[getCurrency] = (string! as NSString).doubleValue
+            getCurrency = -1
+        }
+    }
 
 }
